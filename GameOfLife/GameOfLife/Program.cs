@@ -1,16 +1,17 @@
-﻿// See https://aka.ms/new-console-template for more information
-using GameOfLife;
+﻿using GameOfLife;
 
 Console.WriteLine("Hello! This is Conway's Game of Life.");
+
 Console.WriteLine();
 
-Console.WriteLine("Enter height: ");
+Console.WriteLine("Enter height, please: ");
 string height = Console.ReadLine();
 
-Console.WriteLine("Enter width please");
+Console.WriteLine("Enter width, please:");
 string width = Console.ReadLine();
 
 Console.Clear();
 
-var board = new Board(Int32.Parse(height), Int32.Parse(width));
-board.DisplayBoard();
+var board = new Board(int.Parse(height), int.Parse(width));
+
+board.Play();
