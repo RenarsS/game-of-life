@@ -96,6 +96,7 @@ namespace GameOfLife
                     int aliveCellCount = Count(i, j);
 
                     bool newCell = Determine(aliveCellCount, initialBoard[i, j]);
+
                     newBoard[i, j] = newCell;
                 }
             }
