@@ -109,9 +109,9 @@ namespace GameOfLife
         /// </summary>
         public void DisplayBoard()
         {
-            for (int i = 0; i < initialBoard.GetLength(0); i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (var j = 0; j < initialBoard.GetLength(1); j++)
+                for (var j = 0; j < _width; j++)
                 {
                     Console.Write(initialBoard[i, j] ? (char)009632 + " " : "  ");
                 }
