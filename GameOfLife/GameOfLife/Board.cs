@@ -123,16 +123,16 @@ namespace GameOfLife
         /// <summary>
         /// Iterates through all of the neighbours of a given cell indices.
         /// </summary>
-        /// <param name="x">Index of the row of cell which neighbours are checked.</param>
-        /// <param name="y">Index of the cell in the row.</param>
+        /// <param name="row">Index of the row of the cell which neighbours are checked.</param>
+        /// <param name="column">Index of the cell in the row.</param>
         /// <returns>Integer which represents amount of live cells.</returns>
-        public int Count( int x, int y)
+        public int Count( int row, int column)
         {
             int aliveNeighbourCells = 0;
 
-            for(int i = x - 1; i <= x + 1; i++)
+            for(int i = row - 1; i <= row + 1; i++)
             {
-                for(int j = y - 1; j <= y + 1; j++)
+                for(int j = column - 1; j <= column + 1; j++)
                 {
                     if(i >= 0 && j >= 0 && i < _height && j < _width)
                     {
@@ -144,7 +144,7 @@ namespace GameOfLife
                 }
             }
 
-            if(initialBoard[x, y])
+            if(initialBoard[row, column])
             {
                 return aliveNeighbourCells - 1;
             }
