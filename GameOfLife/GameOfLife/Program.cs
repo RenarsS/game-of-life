@@ -4,11 +4,22 @@ Console.WriteLine("Hello! This is Conway's Game of Life.");
 
 Console.WriteLine();
 
-Console.WriteLine("Enter height, please: ");
-string height = Console.ReadLine();
+string height;
+string width;
 
-Console.WriteLine("Enter width, please:");
-string width = Console.ReadLine();
+do
+{
+    Console.WriteLine("Enter height, please: ");
+    height = Console.ReadLine();
+}
+while(!Validation.ValidateNaturalNum(height));
+
+do
+{
+    Console.WriteLine("Enter width, please:");
+    width = Console.ReadLine();
+} 
+while(!Validation.ValidateNaturalNum(width));
 
 Console.Clear();
 

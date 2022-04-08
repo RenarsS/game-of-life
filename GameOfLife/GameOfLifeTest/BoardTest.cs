@@ -3,7 +3,7 @@ using Xunit;
 
 namespace GameOfLifeTest
 {
-    public class BoardTest1
+    public class BoardTest
     {
 
         private Board board = new Board(10, 10);
