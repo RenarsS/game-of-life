@@ -39,14 +39,13 @@ namespace GameOfLife
             _height = height;
             _width = width;
 
-            // Random number generator
-            Random rnd = new Random();
+            Random randomGen = new Random();
 
             for (int i = 0; i < height; i++)
             {
                 for(int j = 0; j < width; j++)
                 {
-                    initialBoard[i, j] = rnd.Next(0, 2) == 1;
+                    initialBoard[i, j] = randomGen.Next(0, 2) == 1;
                 }
             }
 
