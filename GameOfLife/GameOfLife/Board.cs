@@ -27,6 +27,16 @@ namespace GameOfLife
         private readonly int _width;
 
         /// <summary>
+        /// Constant that holds characters that indicates live cell on a board.
+        /// </summary>
+        private const char LiveCell = (char)009632;
+
+        /// <summary>
+        /// Constant that is used as a space between cells if used once, and dead cell if used twice.
+        /// </summary>
+        private const string EmptyCell = " ";
+
+        /// <summary>
         /// Constructr creates two-dimensional array with user-desired sizes
         /// and populates it with randomly generated boolean values.
         /// </summary>
@@ -92,11 +102,9 @@ namespace GameOfLife
             {
                 for (int j = 0; j < _width; j++)
                 {
-                    int aliveCellCount = Count(i, j);
+                    int aliveCellCount = CountLiveNeighbours(i, j);
 
-                    bool newCell = Determine(aliveCellCount, initialBoard[i, j]);
-
-                    newBoard[i, j] = newCell;
+                    newBoard[i, j] = DetermineCellState(aliveCellCount, initialBoard[i, j]);
                 }
             }
 
@@ -113,7 +121,7 @@ namespace GameOfLife
             {
                 for (var j = 0; j < _width; j++)
                 {
-                    Console.Write(initialBoard[i, j] ? (char)009632 + " " : "  ");
+                    Console.Write(initialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell);
                 }
 
                 Console.WriteLine();
@@ -126,7 +134,7 @@ namespace GameOfLife
         /// <param name="row">Index of the row of the cell which neighbours are checked.</param>
         /// <param name="column">Index of the cell in the row.</param>
         /// <returns>Integer which represents amount of live cells.</returns>
-        public int Count( int row, int column)
+        public int CountLiveNeighbours( int row, int column)
         {
             int aliveNeighbourCells = 0;
 
@@ -158,7 +166,7 @@ namespace GameOfLife
         /// <param name="neighbourCount">Amount of live neighbour cells.</param>
         /// <param name="initialState">Indicates state of the cell prior to rule application.</param>
         /// <returns>State of the cell with the same.</returns>
-        public bool Determine(int neighbourCount, bool initialState)
+        public bool DetermineCellState(int neighbourCount, bool initialState)
         {
             if (neighbourCount < 2 || neighbourCount > 3)
             {

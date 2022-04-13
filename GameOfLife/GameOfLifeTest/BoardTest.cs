@@ -12,9 +12,9 @@ namespace GameOfLifeTest
         [InlineData(2, true)]
         [InlineData(3, true)]
         [InlineData(3, false)]
-        public void Determine_ReturnTrue_ValidInput(int count, bool state)
+        public void DetermineCellState_ReturnTrue_ValidInput(int count, bool state)
         {
-            bool result = board.Determine(count, state);
+            bool result = board.DetermineCellState(count, state);
             Assert.True(result);
         }
 
@@ -27,9 +27,9 @@ namespace GameOfLifeTest
         [InlineData(4, false)]
         [InlineData(8, true)]
         [InlineData(8, false)]
-        public void Determine_ReturnFalse_ValidInput(int count, bool state)
+        public void DetermineCellState_ReturnFalse_ValidInput(int count, bool state)
         {
-            bool result = board.Determine(count, state);
+            bool result = board.DetermineCellState(count, state);
             Assert.False(result);
         }
 
@@ -39,7 +39,7 @@ namespace GameOfLifeTest
         [InlineData(2, 3, 3)]
         [InlineData(2, 2, 4)]
         
-        public void Count_ReturnCorrectCount_ValidInput(int x, int y, int count)
+        public void CountLiveNeighbours_ReturnCorrectCount_ValidInput(int x, int y, int count)
         {
             bool[,] _layout = new bool[5, 5]
             {
@@ -52,7 +52,7 @@ namespace GameOfLifeTest
 
             Board board = new Board(_layout);
             
-            int result = board.Count(x, y);
+            int result = board.CountLiveNeighbours(x, y);
 
             Assert.Equal(count, result);
 
