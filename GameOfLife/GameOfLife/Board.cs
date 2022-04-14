@@ -17,12 +17,12 @@ namespace GameOfLife
         private bool[,] initialBoard;
 
         /// <summary>
-        /// Constant that holds characters that indicates live cell on a board.
+        /// Characters that indicates live cell on a board.
         /// </summary>
         private const char LiveCell = (char)009632;
 
         /// <summary>
-        /// Constant that is used as a space between cells if used once, and dead cell if used twice.
+        /// Used as a space between cells if used once, and dead cell if used twice.
         /// </summary>
         private const string EmptyCell = " ";
 
