@@ -27,7 +27,7 @@ namespace GameOfLife
         private const string EmptyCell = " ";
 
         /// <summary>
-        /// Constructr creates two-dimensional array with user-desired sizes
+        /// Constructor creates two-dimensional array with user-desired sizes
         /// and populates it with randomly generated boolean values.
         /// </summary>
         /// <param name="height">Number of rows stacked vertically.</param>
