@@ -73,7 +73,7 @@
         /// Iterates whole board of cells one time. 
         /// Results in newer generation of live cells based on rules.
         /// </summary>
-        public void Iterate()
+        private void Iterate()
         {
             bool[,] newBoard = new bool[initialBoard.GetLength(0), initialBoard.GetLength(1)];
 
@@ -113,9 +113,9 @@
         /// <param name="row">Index of the row of the cell which neighbours are checked.</param>
         /// <param name="column">Index of the cell in the row.</param>
         /// <returns>Integer which represents amount of live cells.</returns>
-        public int CountLiveNeighbours( int currentRow, int currentColumn)
+        private int CountLiveNeighbours( int currentRow, int currentColumn)
         {
-            int aliveNeighbourCells = 0;
+            int aliveNeighbourCells;
             int previousRow = currentRow == 0 ? initialBoard.GetLength(0) - 1 : currentRow - 1;
             int nextRow = currentRow == initialBoard.GetLength(0) - 1 ? 0 : currentRow + 1;
             int previousColumn = currentColumn == 0 ? initialBoard.GetLength(1) - 1 : currentColumn - 1;
@@ -139,7 +139,7 @@
         /// <param name="neighbourCount">Amount of live neighbour cells.</param>
         /// <param name="initialState">Indicates state of the cell prior to rule application.</param>
         /// <returns>State of the cell with the same.</returns>
-        public bool DetermineCellState(int neighbourCount, bool initialState)
+        private bool DetermineCellState(int neighbourCount, bool initialState)
         {
             if (neighbourCount < 2 || neighbourCount > 3)
             {
