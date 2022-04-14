@@ -17,16 +17,6 @@ namespace GameOfLife
         private bool[,] initialBoard;
 
         /// <summary>
-        /// Amaount of rows in the field.
-        /// </summary>
-        private readonly int _height;
-
-        /// <summary>
-        /// Amount of values in the row.
-        /// </summary>
-        private readonly int _width;
-
-        /// <summary>
         /// Constant that holds characters that indicates live cell on a board.
         /// </summary>
         private const char LiveCell = (char)009632;
@@ -45,9 +35,6 @@ namespace GameOfLife
         public Board(int height, int width)
         {
             initialBoard = new bool[height, width];
-
-            _height = height;
-            _width = width;
 
             Random randomGen = new Random();
 
@@ -69,8 +56,6 @@ namespace GameOfLife
         {
             initialBoard = layout;
 
-            _height = layout.GetLength(0);
-            _width = layout.GetLength(1);
         }
 
         /// <summary>
@@ -96,11 +81,11 @@ namespace GameOfLife
         /// </summary>
         public void Iterate()
         {
-            bool[,] newBoard = new bool[_height, _width];
+            bool[,] newBoard = new bool[initialBoard.GetLength(0), initialBoard.GetLength(1)];
 
-            for(int i = 0; i < _height; i++)
+            for(int i = 0; i < initialBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < _width; j++)
+                for (int j = 0; j < initialBoard.GetLength(1); j++)
                 {
                     int aliveCellCount = CountLiveNeighbours(i, j);
 
@@ -117,9 +102,9 @@ namespace GameOfLife
         /// </summary>
         public void DisplayBoard()
         {
-            for (int i = 0; i < _height; i++)
+            for (int i = 0; i < initialBoard.GetLength(0); i++)
             {
-                for (var j = 0; j < _width; j++)
+                for (var j = 0; j < initialBoard.GetLength(1); j++)
                 {
                     Console.Write(initialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell);
                 }
