@@ -53,7 +53,7 @@ namespace GameOfLife
 
             for (int i = 0; i < height; i++)
             {
-                for(int j = 0; j < width; j++)
+                for (int j = 0; j < width; j++)
                 {
                     initialBoard[i, j] = randomGen.Next(0, 2) == 1;
                 }
@@ -134,28 +134,22 @@ namespace GameOfLife
         /// <param name="row">Index of the row of the cell which neighbours are checked.</param>
         /// <param name="column">Index of the cell in the row.</param>
         /// <returns>Integer which represents amount of live cells.</returns>
-        public int CountLiveNeighbours( int row, int column)
+        public int CountLiveNeighbours( int currentRow, int currentColumn)
         {
             int aliveNeighbourCells = 0;
+            int previousRow = currentRow == 0 ? initialBoard.GetLength(0) - 1 : currentRow - 1;
+            int nextRow = currentRow == initialBoard.GetLength(0) - 1 ? 0 : currentRow + 1;
+            int previousColumn = currentColumn == 0 ? initialBoard.GetLength(1) - 1 : currentColumn - 1;
+            int nextColumn = currentColumn == initialBoard.GetLength(1) -1 ? 0 : currentColumn + 1;
 
-            for(int i = row - 1; i <= row + 1; i++)
-            {
-                for(int j = column - 1; j <= column + 1; j++)
-                {
-                    if(i >= 0 && j >= 0 && i < _height && j < _width)
-                    {
-                        if (initialBoard[i, j])
-                        {
-                            aliveNeighbourCells++;
-                        }
-                    }
-                }
-            }
-
-            if(initialBoard[row, column])
-            {
-                return aliveNeighbourCells - 1;
-            }
+            aliveNeighbourCells = initialBoard[previousRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[previousRow, currentColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[previousRow, nextColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[currentRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[currentRow, nextColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[nextRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[nextRow, currentColumn] ? 1 : 0;
+            aliveNeighbourCells += initialBoard[nextRow, nextColumn] ? 1 : 0;
 
             return aliveNeighbourCells;
         }
