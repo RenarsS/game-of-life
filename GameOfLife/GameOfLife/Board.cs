@@ -21,6 +21,11 @@
         private const string EmptyCell = " ";
 
         /// <summary>
+        /// Count of live cells on the board.
+        /// </summary>
+        private int liveCellCount { get; set; } = 0;
+
+        /// <summary>
         /// Constructor creates two-dimensional array with user-desired sizes
         /// and populates it with randomly generated boolean values.
         /// </summary>
@@ -37,6 +42,8 @@
                 for (int j = 0; j < width; j++)
                 {
                     initialBoard[i, j] = randomGen.Next(0, 2) == 1;
+
+                    CountLiveCells(initialBoard[i, j]);
                 }
             }
 
@@ -49,7 +56,6 @@
         public Board(bool[,] layout)
         {
             initialBoard = layout;
-
         }
 
         /// <summary>
@@ -59,6 +65,7 @@
         {
             do
             {
+                DisplayLiveCellCount();
                 DisplayBoard();
                 Iterate();
 
@@ -75,6 +82,8 @@
         /// </summary>
         private void Iterate()
         {
+            liveCellCount = 0;
+
             bool[,] newBoard = new bool[initialBoard.GetLength(0), initialBoard.GetLength(1)];
 
             for(int i = 0; i < initialBoard.GetLength(0); i++)
@@ -84,6 +93,8 @@
                     int aliveCellCount = CountLiveNeighbours(i, j);
 
                     newBoard[i, j] = DetermineCellState(aliveCellCount, initialBoard[i, j]);
+
+                    CountLiveCells(newBoard[i, j]);
                 }
             }
 
@@ -152,6 +163,23 @@
             }
             
             return initialState;
+        }
+
+        /// <summary>
+        /// Used as counter. Adds 1 if cell is live.
+        /// </summary>
+        /// <param name="cell">Cell that is used to check its state.</param>
+        private void CountLiveCells(bool cell)
+        {
+            liveCellCount += cell ? 1 : 0;
+        }
+
+        /// <summary>
+        /// Displays in console how many live cells are on the board.
+        /// </summary>
+        private void DisplayLiveCellCount()
+        {
+            Console.WriteLine($"Live cells at the moment: {liveCellCount}");
         }
     }
 }

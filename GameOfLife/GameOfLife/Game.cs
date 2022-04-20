@@ -19,13 +19,21 @@
         }
 
         /// <summary>
-        /// Prepares for the game - gets input and initializes board.
+        /// Displays welcome message.
         /// </summary>
-        public void Prepare()
+        private void Welcome()
         {
             Console.WriteLine("Hello! This is Conway's Game of Life.");
 
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Prepares for the game - gets input and initializes board.
+        /// </summary>
+        public void Prepare()
+        {
+            Welcome();
 
             int height;
             int width;
