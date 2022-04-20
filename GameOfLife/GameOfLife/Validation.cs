@@ -27,7 +27,7 @@
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            catch(FormatException ex)
+            catch (FormatException)
             {
                 Console.WriteLine("Input value should contain only integer values.");
                 return false;

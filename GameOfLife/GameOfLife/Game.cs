@@ -1,7 +1,7 @@
 ﻿namespace GameOfLife
 {
     /// <summary>
-    /// Class for managing game and preparing the board.
+    /// Class providing game functionality.
     /// </summary>
     public class Game
     {
@@ -52,9 +52,9 @@
         }
 
         /// <summary>
-        /// Starts the game.
+        /// Starts the game and is displayed on the screen.
         /// </summary>
-        public void Play()
+        public void PlayOnDisplay()
         {
             do
             {
@@ -64,6 +64,21 @@
 
                 gameBoard.DisplayLiveCellCount();
 
+                gameBoard.Iterate();
+
+                Thread.Sleep(1000);
+                Console.Clear();
+
+            } while (isActive);
+        }
+
+        /// <summary>
+        /// Plays game in the background.
+        /// </summary>
+        public void Play()
+        {
+            do
+            {
                 gameBoard.Iterate();
 
                 Thread.Sleep(1000);
@@ -92,14 +107,30 @@
 
         }
 
+        /// <summary>
+        /// Starts game by setting isActive, which controls the loop, to true.
+        /// </summary>
         public void StartGame()
         {
             isActive = true;
         }
 
+        /// <summary>
+        /// Stops game by setting isActive, which controls the loop, to false.
+        /// </summary>
         public void StopGame()
         {
             isActive = false;
+        }
+
+        /// <summary>
+        /// Displays message after game was ended.
+        /// </summary>
+        public void EndGame()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Thanks for the game! Well played!");
         }
 
     }
