@@ -4,5 +4,6 @@ var game = new Game();
 
 game.Prepare();
 
-game.Start();
+game.StartGame();
 
+game.Play();

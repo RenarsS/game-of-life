@@ -11,6 +11,11 @@
         private Board gameBoard { get; set; }
 
         /// <summary>
+        /// Determines 
+        /// </summary>
+        private bool isActive { get; set; } = false;
+
+        /// <summary>
         /// Constructor for the Game.
         /// </summary>
         public Game()
@@ -49,9 +54,22 @@
         /// <summary>
         /// Starts the game.
         /// </summary>
-        public void Start()
+        public void Play()
         {
-            gameBoard.Play();
+            do
+            {
+                gameBoard.DisplayIterations();
+
+                gameBoard.DisplayBoard();
+
+                gameBoard.DisplayLiveCellCount();
+
+                gameBoard.Iterate();
+
+                Thread.Sleep(1000);
+                Console.Clear();
+
+            } while (isActive);
         }
 
         /// <summary>
@@ -72,6 +90,16 @@
 
             return int.Parse(input);
 
+        }
+
+        public void StartGame()
+        {
+            isActive = true;
+        }
+
+        public void StopGame()
+        {
+            isActive = false;
         }
 
     }

@@ -26,6 +26,11 @@
         private int liveCellCount { get; set; } = 0;
 
         /// <summary>
+        /// Count of iterations of the board.
+        /// </summary>
+        private int iterationCount { get; set; } = 1;
+
+        /// <summary>
         /// Constructor creates two-dimensional array with user-desired sizes
         /// and populates it with randomly generated boolean values.
         /// </summary>
@@ -59,28 +64,10 @@
         }
 
         /// <summary>
-        /// Starts game. Game played infinitely.
-        /// </summary>
-        public void Play()
-        {
-            do
-            {
-                DisplayLiveCellCount();
-                DisplayBoard();
-                Iterate();
-
-                Thread.Sleep(1000);
-                Console.Clear();
-
-            } while (true);
-
-        }
-
-        /// <summary>
         /// Iterates whole board of cells one time. 
         /// Results in newer generation of live cells based on rules.
         /// </summary>
-        private void Iterate()
+        public void Iterate()
         {
             liveCellCount = 0;
 
@@ -97,6 +84,8 @@
                     CountLiveCells(newBoard[i, j]);
                 }
             }
+
+            AugmentIterations();
 
             initialBoard = newBoard;
         }
@@ -116,6 +105,8 @@
 
                 Console.WriteLine();
             }
+
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -124,7 +115,7 @@
         /// <param name="row">Index of the row of the cell which neighbours are checked.</param>
         /// <param name="column">Index of the cell in the row.</param>
         /// <returns>Integer which represents amount of live cells.</returns>
-        private int CountLiveNeighbours( int currentRow, int currentColumn)
+        public int CountLiveNeighbours( int currentRow, int currentColumn)
         {
             int aliveNeighbourCells;
             int previousRow = currentRow == 0 ? initialBoard.GetLength(0) - 1 : currentRow - 1;
@@ -150,7 +141,7 @@
         /// <param name="neighbourCount">Amount of live neighbour cells.</param>
         /// <param name="initialState">Indicates state of the cell prior to rule application.</param>
         /// <returns>State of the cell with the same.</returns>
-        private bool DetermineCellState(int neighbourCount, bool initialState)
+        public bool DetermineCellState(int neighbourCount, bool initialState)
         {
             if (neighbourCount < 2 || neighbourCount > 3)
             {
@@ -177,9 +168,23 @@
         /// <summary>
         /// Displays in console how many live cells are on the board.
         /// </summary>
-        private void DisplayLiveCellCount()
+        public void DisplayLiveCellCount()
         {
             Console.WriteLine($"Live cells at the moment: {liveCellCount}");
+            Console.WriteLine();
         }
+
+        private void AugmentIterations()
+        {
+            iterationCount++;
+        }
+
+        public void DisplayIterations()
+        {
+            Console.WriteLine($"Generation of cells No. {iterationCount}.");
+            Console.WriteLine(); ;
+            
+        }
+
     }
 }
