@@ -26,51 +26,16 @@ namespace GameOfLife
             Game.Prepare();
 
             Game.StartGame();
-
-
-        }
-        public void Run()
-        {
-            StopGame();
-
-            Game.PlayOnDisplay();
-
-
         }
 
-        public void DisplayMainMenu()
+        public async void Run()
         {
 
-        }
-
-        private void ExitGame()
-        {
-
-        }
-
-        private void StopGame()
-        {
-            Action stop = () =>
+            while(Game.State != GameState.Exited)
             {
-                Thread.Sleep(5000);
-                Game.StopGame();
-            };
+                Game.PlayOnDisplay();
 
-            Task stopTask = new Task(stop);
-
-            stopTask.Start();
-;        }
-
-        private void ContinueGame()
-        {
-
+            }
         }
-
-        private void SaveAndExit()
-        {
-
-        }
-
-
     }
 }

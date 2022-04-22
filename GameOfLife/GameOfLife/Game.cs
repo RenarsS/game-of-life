@@ -11,9 +11,9 @@
         private Board gameBoard { get; set; }
 
         /// <summary>
-        /// Determines 
+        /// State of the  
         /// </summary>
-        private bool isActive { get; set; } = false;
+        public GameState State { get; set; } = GameState.StandBy;
 
         /// <summary>
         /// Constructor for the Game.
@@ -24,21 +24,10 @@
         }
 
         /// <summary>
-        /// Displays welcome message.
-        /// </summary>
-        private void Welcome()
-        {
-            Console.WriteLine("Hello! This is Conway's Game of Life.");
-
-            Console.WriteLine();
-        }
-
-        /// <summary>
         /// Prepares for the game - gets input and initializes board.
         /// </summary>
         public void Prepare()
         {
-            Welcome();
 
             int height;
             int width;
@@ -49,6 +38,8 @@
             Console.Clear();
 
             gameBoard = new Board(height, width);
+
+            StartGame();
         }
 
         /// <summary>
@@ -56,7 +47,38 @@
         /// </summary>
         public void PlayOnDisplay()
         {
-            do
+            //State = GameState.Playing;
+            //Console.Clear();
+
+            Action checkAction = () =>
+            {
+                var key = Console.ReadKey(true);
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.Enter:
+                        StartGame();
+                        //Game.PlayOnDisplay();
+                        Console.WriteLine("Game resumed.");
+                        break;
+
+                    case ConsoleKey.Spacebar:
+                        PauseGame();
+                        Console.WriteLine("Game paused.");
+                        break;
+
+                    case ConsoleKey.Escape:
+                        EndGame();
+                        Console.WriteLine("Game exited.");
+                        break;
+                }
+            };
+
+            Task checkTask = new Task(checkAction);
+
+            checkTask.Start();
+             
+            while (State == GameState.Playing)
             {
                 gameBoard.DisplayIterations();
 
@@ -67,9 +89,20 @@
                 gameBoard.Iterate();
 
                 Thread.Sleep(1000);
-                Console.Clear();
 
-            } while (isActive);
+                Console.Clear();
+            }
+
+            Console.WriteLine($"Game state - {State}");
+
+            Console.WriteLine("Game was paused.");
+
+            Console.WriteLine();
+
+            Console.WriteLine("To resume press enter.");
+            Console.WriteLine("To exit press esc.");
+
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -82,9 +115,8 @@
                 gameBoard.Iterate();
 
                 Thread.Sleep(1000);
-                Console.Clear();
 
-            } while (isActive);
+            } while (State == GameState.Playing);
         }
 
         /// <summary>
@@ -108,29 +140,28 @@
         }
 
         /// <summary>
-        /// Starts game by setting isActive, which controls the loop, to true.
+        /// Starts game by setting state, which controls the loop, to true.
         /// </summary>
         public void StartGame()
         {
-            isActive = true;
+            State = GameState.Playing;
+            //PlayOnDisplay();
         }
 
         /// <summary>
-        /// Stops game by setting isActive, which controls the loop, to false.
+        /// Pauses game by setting state accordingly
         /// </summary>
-        public void StopGame()
+        public void PauseGame()
         {
-            isActive = false;
+            State = GameState.Paused;
         }
 
         /// <summary>
-        /// Displays message after game was ended.
+        /// Ends game by setting state accordingly.
         /// </summary>
         public void EndGame()
         {
-            Console.Clear();
-
-            Console.WriteLine("Thanks for the game! Well played!");
+            State = GameState.Exited;
         }
 
     }
