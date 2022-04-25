@@ -48,6 +48,11 @@ namespace GameOfLife
                 keyTask.Start();
 
                 _gameBoard.Flow();
+
+                if (State == GameState.Paused)
+                {
+                    Panel.DisplayMessage("Game was paused. \n\nTo resume press enter. \nTo exit press escape.");
+                }
             }
         }
     }
