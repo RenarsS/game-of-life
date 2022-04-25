@@ -12,7 +12,6 @@ namespace GameOfLife
     /// </summary>
     public enum GameState
     {
-        StandBy,
         Playing,
         Paused,
         Saving,

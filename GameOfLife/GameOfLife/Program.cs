@@ -1,5 +1,15 @@
 ﻿using GameOfLife;
+using GameOfLife.Conway;
 
-var player = new Player();
+int height = Panel.GetIntegerInput("Height:");
+int width = Panel.GetIntegerInput("Width:");
 
-player.Run();
+var conwayBoard = new ConwayBoard(height, width);
+
+var conwayGame = new Game(conwayBoard);
+
+while(true)
+{
+    conwayGame.Play();
+}
+
