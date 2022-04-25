@@ -8,7 +8,7 @@ var conwayBoard = new ConwayBoard(height, width);
 
 var conwayGame = new Game(conwayBoard);
 
-while(true)
+while(conwayGame.State != GameState.Exited)
 {
     conwayGame.Play();
 }
