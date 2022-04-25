@@ -14,12 +14,12 @@ namespace GameOfLife.Conway
         /// <summary>
         /// Count of live cells on the board.
         /// </summary>
-        public int LiveCellCount { get; set; } = 0;
+        private int liveCellCount { get; set; } = 0;
 
         /// <summary>
         /// Count of iterations of the board.
         /// </summary>
-        public int IterationCount { get; set; } = 1;
+        public int iterationCount { get; set; } = 1;
 
         /// <summary>
         /// Initialiazes board with required size.
@@ -40,6 +40,10 @@ namespace GameOfLife.Conway
                     CountLiveCells(initialBoard[i, j]);
                 }
             }
+
+            Statistics.Add("Generations of cells", iterationCount);
+
+            Statistics.Add("Amount of live cells", liveCellCount);
         }
 
         /// <summary>
@@ -48,6 +52,8 @@ namespace GameOfLife.Conway
         public override void Flow()
         {
             DisplayBoard();
+
+            Panel.DisplayStatsTable(Statistics);
 
             Iterate();
 
@@ -58,10 +64,11 @@ namespace GameOfLife.Conway
 
         /// <summary>
         /// Iterates throught board and applies rules.
+        /// Updates statistics.
         /// </summary>
         public override void Iterate()
         {
-            LiveCellCount = 0;
+            liveCellCount = 0;
 
             bool[,] newBoard = new bool[initialBoard.GetLength(0), initialBoard.GetLength(1)];
 
@@ -78,6 +85,9 @@ namespace GameOfLife.Conway
             }
 
             AugmentIterations();
+
+            Statistics["Generations of cells"] = iterationCount;
+            Statistics["Amount of live cells"] = liveCellCount;
 
             initialBoard = newBoard;
         }
@@ -154,7 +164,7 @@ namespace GameOfLife.Conway
         /// <param name="cell">Cell that is used to check its state.</param>
         private void CountLiveCells(bool cell)
         {
-            LiveCellCount += cell ? 1 : 0;
+            liveCellCount += cell ? 1 : 0;
         }
 
         /// <summary>
@@ -162,7 +172,7 @@ namespace GameOfLife.Conway
         /// </summary>
         private void AugmentIterations()
         {
-            IterationCount++;
+            iterationCount++;
         }
     }
 }

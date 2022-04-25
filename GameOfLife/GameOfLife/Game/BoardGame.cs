@@ -35,6 +35,7 @@ namespace GameOfLife
 
                         case ConsoleKey.Enter:
                             Start();
+                            Console.Clear();
                             break;
 
                         case ConsoleKey.Escape:

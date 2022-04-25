@@ -32,5 +32,14 @@ namespace GameOfLife
             Console.WriteLine(message);
         }
 
+        public static void DisplayStatsTable(Dictionary<string, int> stats)
+        {
+            foreach (var stat in stats)
+            {
+                Console.Write("{0, -15} {1,5}\n", stat.Key, stat.Value);
+            }
+
+            Console.WriteLine();
+        }
     }
 }

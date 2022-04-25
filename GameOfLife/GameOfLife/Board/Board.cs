@@ -6,6 +6,11 @@
     public abstract class Board : IBoard
     {
         /// <summary>
+        /// Holds statistics about the game.
+        /// </summary>
+        public Dictionary<string, int> Statistics { get; set; } = new Dictionary<string, int>();
+
+        /// <summary>
         /// Two-dimensional array in which initial values are stored and new layout created.
         /// </summary>
         protected bool[,] initialBoard;
