@@ -6,7 +6,7 @@ int width = Panel.GetIntegerInput("Width:");
 
 var conwayBoard = new ConwayBoard(height, width);
 
-var conwayGame = new Game(conwayBoard);
+var conwayGame = new BoardGame(conwayBoard);
 
 while(conwayGame.State != GameState.Exited)
 {
