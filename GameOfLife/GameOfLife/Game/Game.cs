@@ -1,4 +1,5 @@
-﻿namespace GameOfLife
+﻿
+namespace GameOfLife
 {
     /// <summary>
     /// Class providing game functionality.
@@ -39,5 +40,8 @@
         {
             State = GameState.Paused;
         }
+
+        /// <inheritdoc/>
+        public abstract void Save();
     }
 }

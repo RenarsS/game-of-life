@@ -1,10 +1,16 @@
-﻿namespace GameOfLife
+﻿
+namespace GameOfLife
 {
     /// <summary>
     /// Class for storing and managing field and cells.
     /// </summary>
     public abstract class Board : IBoard
     {
+        /// <summary>
+        /// Unique identifier of the board.
+        /// </summary>
+        public Guid BoardId { get; set; } = Guid.NewGuid();
+
         /// <summary>
         /// Holds statistics about the game.
         /// </summary>
@@ -51,8 +57,8 @@
         public abstract void Flow();
 
         /// <summary>
-        /// Iterates whole board of cells one time. 
-        /// Results in newer generation of live cells based on rules.
+        /// Iterates whole board once. 
+        /// Results in newer generation of board.
         /// </summary>
         public abstract void Iterate();
 

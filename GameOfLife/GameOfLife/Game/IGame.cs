@@ -1,4 +1,5 @@
-﻿namespace GameOfLife
+﻿
+namespace GameOfLife
 {
     /// <summary>
     /// Interface for game implementation.
@@ -25,5 +26,9 @@
         /// </summary>
         public void Pause();
 
+        /// <summary>
+        /// Saves the game.
+        /// </summary>
+        public void Save();
     }
 }
