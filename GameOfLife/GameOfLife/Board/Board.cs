@@ -4,12 +4,13 @@ namespace GameOfLife
     /// <summary>
     /// Class for storing and managing field and cells.
     /// </summary>
+    [Serializable]
     public abstract class Board : IBoard
     {
         /// <summary>
         /// Unique identifier of the board.
-        /// </summary>
-        public Guid BoardId { get; set; } = Guid.NewGuid();
+        /// </summary>10
+        public Guid BoardId { get; } = Guid.NewGuid();
 
         /// <summary>
         /// Holds statistics about the game.
@@ -19,7 +20,30 @@ namespace GameOfLife
         /// <summary>
         /// Two-dimensional array in which initial values are stored and new layout created.
         /// </summary>
-        protected bool[,] initialBoard;
+        public bool[,] InitialBoard { get; set; }
+
+        /// <summary>
+        /// Parsed two-dimensional array for serialization.
+        /// </summary>
+        //public int[][] Layout 
+        //{  
+        //    get
+        //    {
+        //        int[][] layout = new int[InitialBoard.GetLength(0)][];
+
+        //        for(int i = 0; i < InitialBoard.GetLength(1); i++)
+        //        {
+        //            layout[i] = new int[InitialBoard.GetLength(1)];
+
+        //            for (int j = 0; j < InitialBoard.GetLength(1); j++)
+        //            {
+        //                layout[i][j] = InitialBoard[i, j] ? 1 : 0;
+        //            }
+        //        }
+
+        //        return layout;
+        //    }
+        //}
 
         /// <summary>
         /// Characters that indicates live cell on a board.
@@ -39,7 +63,7 @@ namespace GameOfLife
         /// <param name="width">Number of values that can be stored in a row.</param>
         public Board(int height, int width)
         {
-            initialBoard = new bool[height, width];
+            InitialBoard = new bool[height, width];
         }
         
         /// <summary>
@@ -48,7 +72,7 @@ namespace GameOfLife
         /// <param name="layout">Array contains predefined boolean values of the field.</param>
         public Board(bool[,] layout)
         {
-            initialBoard = layout;
+            InitialBoard = layout;
         }
         
         /// <summary>

@@ -30,14 +30,13 @@ namespace GameOfLife
             {
                 for (int j = 0; j < width; j++)
                 {
-                    initialBoard[i, j] = randomGen.Next(0, 2) == 1;
+                    InitialBoard[i, j] = randomGen.Next(0, 2) == 1;
 
-                    CountLiveCells(initialBoard[i, j]);
+                    CountLiveCells(InitialBoard[i, j]);
                 }
             }
 
             Statistics.Add("Generations of cells", iterationCount);
-
             Statistics.Add("Amount of live cells", liveCellCount);
         }
 
@@ -65,15 +64,15 @@ namespace GameOfLife
         {
             liveCellCount = 0;
 
-            bool[,] newBoard = new bool[initialBoard.GetLength(0), initialBoard.GetLength(1)];
+            bool[,] newBoard = new bool[InitialBoard.GetLength(0), InitialBoard.GetLength(1)];
 
-            for (int i = 0; i < initialBoard.GetLength(0); i++)
+            for (int i = 0; i < InitialBoard.GetLength(0); i++)
             {
-                for (int j = 0; j < initialBoard.GetLength(1); j++)
+                for (int j = 0; j < InitialBoard.GetLength(1); j++)
                 {
                     int aliveCellCount = CountLiveNeighbours(i, j);
 
-                    newBoard[i, j] = DetermineCellState(aliveCellCount, initialBoard[i, j]);
+                    newBoard[i, j] = DetermineCellState(aliveCellCount, InitialBoard[i, j]);
 
                     CountLiveCells(newBoard[i, j]);
                 }
@@ -84,7 +83,7 @@ namespace GameOfLife
             Statistics["Generations of cells"] = iterationCount;
             Statistics["Amount of live cells"] = liveCellCount;
 
-            initialBoard = newBoard;
+            InitialBoard = newBoard;
         }
 
         /// <summary>
@@ -93,11 +92,11 @@ namespace GameOfLife
         /// </summary>
         public override void DisplayBoard()
         {
-            for (int i = 0; i < initialBoard.GetLength(0); i++)
+            for (int i = 0; i < InitialBoard.GetLength(0); i++)
             {
-                for (var j = 0; j < initialBoard.GetLength(1); j++)
+                for (var j = 0; j < InitialBoard.GetLength(1); j++)
                 {
-                    Console.Write(initialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell);
+                    Console.Write(InitialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell);
                 }
 
                 Console.WriteLine();
@@ -115,19 +114,19 @@ namespace GameOfLife
         public int CountLiveNeighbours(int currentRow, int currentColumn)
         {
             int aliveNeighbourCells;
-            int previousRow = currentRow == 0 ? initialBoard.GetLength(0) - 1 : currentRow - 1;
-            int nextRow = currentRow == initialBoard.GetLength(0) - 1 ? 0 : currentRow + 1;
-            int previousColumn = currentColumn == 0 ? initialBoard.GetLength(1) - 1 : currentColumn - 1;
-            int nextColumn = currentColumn == initialBoard.GetLength(1) - 1 ? 0 : currentColumn + 1;
+            int previousRow = currentRow == 0 ? InitialBoard.GetLength(0) - 1 : currentRow - 1;
+            int nextRow = currentRow == InitialBoard.GetLength(0) - 1 ? 0 : currentRow + 1;
+            int previousColumn = currentColumn == 0 ? InitialBoard.GetLength(1) - 1 : currentColumn - 1;
+            int nextColumn = currentColumn == InitialBoard.GetLength(1) - 1 ? 0 : currentColumn + 1;
 
-            aliveNeighbourCells = initialBoard[previousRow, previousColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[previousRow, currentColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[previousRow, nextColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[currentRow, previousColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[currentRow, nextColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[nextRow, previousColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[nextRow, currentColumn] ? 1 : 0;
-            aliveNeighbourCells += initialBoard[nextRow, nextColumn] ? 1 : 0;
+            aliveNeighbourCells = InitialBoard[previousRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[previousRow, currentColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[previousRow, nextColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[currentRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[currentRow, nextColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[nextRow, previousColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[nextRow, currentColumn] ? 1 : 0;
+            aliveNeighbourCells += InitialBoard[nextRow, nextColumn] ? 1 : 0;
 
             return aliveNeighbourCells;
         }

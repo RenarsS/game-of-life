@@ -15,10 +15,7 @@ namespace GameOfLife
         /// <summary>
         /// Constructor for the Game.
         /// </summary>
-        public BoardGame(IBoard gameBoard)
-        {
-            _gameBoard = gameBoard;
-        }
+        public BoardGame(IBoard gameBoard) => _gameBoard = gameBoard;
 
         /// <inheritdoc/>
         public override void Play()
@@ -68,11 +65,22 @@ namespace GameOfLife
         /// </summary>
         public override void Save()
         {
-            string fileName = $"C:\\Users\\renars.susejs\\Downloads\\Conways-game-{_gameBoard.BoardId}.json";
+            string pathCurrent = Directory.GetCurrentDirectory();
+
+            string fileName = $"{pathCurrent}\\Conways-game-{Guid.NewGuid()}.json";
 
             string jsonString = JsonSerializer.Serialize(_gameBoard);
 
-             File.WriteAllText(fileName, jsonString);
+            File.WriteAllText(fileName, jsonString);
+        }
+
+        /// <summary>
+        /// Restores game from the json file.
+        /// </summary>
+        /// <exception cref="NotImplementedException">Hasn't been implemented yet.</exception>
+        public override void Restore()
+        {
+            throw new NotImplementedException();
         }
 
     }

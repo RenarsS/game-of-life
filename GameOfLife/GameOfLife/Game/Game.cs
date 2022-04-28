@@ -41,7 +41,14 @@ namespace GameOfLife
             State = GameState.Paused;
         }
 
+        /// <summary>
         /// <inheritdoc/>
+        /// </summary>
         public abstract void Save();
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public abstract void Restore();
     }
 }

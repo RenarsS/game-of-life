@@ -12,6 +12,5 @@ namespace GameOfLife
         /// Partially responsible for controlling what is viewed.
         /// </summary>
         public void Run();
-
     }
 }

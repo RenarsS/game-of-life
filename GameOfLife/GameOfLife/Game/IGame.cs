@@ -30,5 +30,10 @@ namespace GameOfLife
         /// Saves the game.
         /// </summary>
         public void Save();
+
+        /// <summary>
+        /// Restores the game from the file.
+        /// </summary>
+        public void Restore();
     }
 }
