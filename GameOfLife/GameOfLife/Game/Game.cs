@@ -1,10 +1,12 @@
 ﻿
+using GameOfLife.Utils;
+
 namespace GameOfLife
 {
     /// <summary>
     /// Class providing game functionality.
     /// </summary>
-    public abstract class Game : IGame
+    public abstract class Game<T> : Save<T>, IGame 
     {
         /// <summary>
         /// State of the game.
@@ -40,15 +42,5 @@ namespace GameOfLife
         {
             State = GameState.Paused;
         }
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public abstract void Save();
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public abstract void Restore();
     }
 }

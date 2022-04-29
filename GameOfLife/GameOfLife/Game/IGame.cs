@@ -25,15 +25,5 @@ namespace GameOfLife
         /// Used to control game state.
         /// </summary>
         public void Pause();
-
-        /// <summary>
-        /// Saves the game.
-        /// </summary>
-        public void Save();
-
-        /// <summary>
-        /// Restores the game from the file.
-        /// </summary>
-        public void Restore();
     }
 }

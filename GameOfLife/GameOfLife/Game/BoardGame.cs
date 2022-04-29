@@ -1,11 +1,11 @@
-﻿using System.Text.Json;
+﻿using Newtonsoft.Json;
 
 namespace GameOfLife
 {
     /// <summary>
     /// Implementation for games that use Board interface.
     /// </summary>
-    public class BoardGame : Game
+    public class BoardGame : Game<IBoard>
     {
         /// <summary>
         /// Board of the game
@@ -40,9 +40,9 @@ namespace GameOfLife
                             break;
 
                         case ConsoleKey.S:
-                            Save();
-                            Console.Clear();
-                            Start();
+                            Retain(_gameBoard);
+                            //Console.Clear();
+                            //Start();
                             break;
                     }
                 };
@@ -58,29 +58,6 @@ namespace GameOfLife
                     Panel.DisplayMessage("Game was paused. \n\nTo resume press enter. \nTo exit press escape. \nTo save press S.");
                 }
             }
-        }
-
-        /// <summary>
-        /// Saves the dispositions of the board to JSON file.
-        /// </summary>
-        public override void Save()
-        {
-            string pathCurrent = Directory.GetCurrentDirectory();
-
-            string fileName = $"{pathCurrent}\\Conways-game-{Guid.NewGuid()}.json";
-
-            string jsonString = JsonSerializer.Serialize(_gameBoard);
-
-            File.WriteAllText(fileName, jsonString);
-        }
-
-        /// <summary>
-        /// Restores game from the json file.
-        /// </summary>
-        /// <exception cref="NotImplementedException">Hasn't been implemented yet.</exception>
-        public override void Restore()
-        {
-            throw new NotImplementedException();
         }
 
     }
