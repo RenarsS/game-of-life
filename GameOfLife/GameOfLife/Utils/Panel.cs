@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace GameOfLife
 {
     /// <summary>
@@ -72,6 +67,44 @@ namespace GameOfLife
             }
 
             Console.WriteLine();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options">Options displayed with action.</param>
+        public static void DisplayOptionMenu(string[] options)
+        {
+
+        }
+
+        /// <summary>
+        /// Calls function on key press.
+        /// Programmable key fucntionality.
+        /// </summary>
+        /// <param name="spacebar">Action invoked by spacebar key.</param>
+        /// <param name="enter">Action invoked b  by escape key.</param>
+        /// <param name="s">Action inved by s key.</param>
+        public static void DisplayKeyMenu(Action spacebar, Action enter, Action escape, Action s)
+        {
+            switch (GetKeyInput())
+            {
+                case ConsoleKey.Spacebar:
+                    spacebar();
+                    break;
+
+                case ConsoleKey.Enter:
+                    enter();
+                    break;
+
+                case ConsoleKey.Escape:
+                    escape();
+                    break;
+
+                case ConsoleKey.S:
+                    s();
+                    break;
+            }
         }
     }
 }

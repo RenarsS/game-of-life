@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-
+﻿
 namespace GameOfLife
 {
     /// <summary>
@@ -22,30 +21,12 @@ namespace GameOfLife
         {
             while (State == GameState.Playing)
             {
-                Action keyAction = () =>
-                {
-                    switch (Panel.GetKeyInput())
-                    {
-                        case ConsoleKey.Spacebar:
-                            Pause();
-                            break;
-
-                        case ConsoleKey.Enter:
-                            Start();
-                            Console.Clear();
-                            break;
-
-                        case ConsoleKey.Escape:
-                            Stop();
-                            break;
-
-                        case ConsoleKey.S:
-                            Retain(_gameBoard);
-                            //Console.Clear();
-                            //Start();
-                            break;
-                    }
-                };
+                Action keyAction = () => Panel.DisplayKeyMenu(
+                    spacebar: () => { Pause(); Console.Clear(); },
+                    enter: () => { Start(); Console.Clear(); },
+                    escape: () => { Stop(); Console.Clear(); },
+                    s: () => { Retain(_gameBoard); Console.Clear(); }
+                    );
 
                 Task keyTask = new Task(keyAction);
 
@@ -59,6 +40,5 @@ namespace GameOfLife
                 }
             }
         }
-
     }
 }
