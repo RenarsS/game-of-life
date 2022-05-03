@@ -7,12 +7,12 @@ namespace GameOfLife
     public class BoardGame : Game<IBoard>
     {
         /// <summary>
-        /// Board of the game
+        /// Board of the game.
         /// </summary>
         private IBoard _gameBoard { get; set; }
 
         /// <summary>
-        /// Constructor for the Game.
+        /// Constructor for the game.
         /// </summary>
         public BoardGame(IBoard gameBoard) => _gameBoard = gameBoard;
 
@@ -21,14 +21,14 @@ namespace GameOfLife
         {
             while (State == GameState.Playing)
             {
-                Action keyAction = () => Panel.DisplayKeyMenu(
+                Action keyActions = () => Panel.DisplayKeyMenu(
                     spacebar: () => { Pause(); Console.Clear(); },
                     enter: () => { Start(); Console.Clear(); },
                     escape: () => { Stop(); Console.Clear(); },
-                    s: () => { Retain(_gameBoard); Console.Clear(); }
+                    s: () => { Retain(_gameBoard); Stop(); Console.Clear(); }
                     );
 
-                Task keyTask = new Task(keyAction);
+                Task keyTask = new Task(keyActions);
 
                 keyTask.Start();
 
@@ -36,7 +36,7 @@ namespace GameOfLife
 
                 if (State == GameState.Paused)
                 {
-                    Panel.DisplayMessage("Game was paused. \n\nTo resume press enter. \nTo exit press escape. \nTo save press S.");
+                    Panel.DisplayMessage("Game was paused. \n\nTo resume press enter. \nTo exit press escape. \nTo save and exit press S.");
                 }
             }
         }

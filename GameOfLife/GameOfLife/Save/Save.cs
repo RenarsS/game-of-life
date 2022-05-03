@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GameOfLife.Utils
+namespace GameOfLife
 {
     /// <summary>
     /// Class for generic implementation of retaining and restoring operations.
@@ -9,37 +9,66 @@ namespace GameOfLife.Utils
     public class Save<T> : ISave<T>
     {
         /// <summary>
+        /// Name of the directory for the game files.
+        /// </summary>
+        private static readonly string _dirName = "GameFiles";
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public static string DirectoryPath 
+        { 
+            get
+            {
+                string fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _dirName);
+
+                return fullPath;
+            }
+
+        }
+
+        /// <summary>
         /// Creates json file and saves the info about game.
         /// </summary>
         /// <param name="data">Holds object that contains data about the game.</param>
         public void Retain(T data)
         {
-            string pathName = @"c:\ConwayGame";
-
-            if(!Directory.Exists(pathName))
+            if(!Directory.Exists(DirectoryPath))
             {
-                Directory.CreateDirectory(pathName);
+                Directory.CreateDirectory(DirectoryPath);
             }
 
             string jsonString = JsonConvert.SerializeObject(data);
 
-            string fileName = $"{pathName}\\{Guid.NewGuid()}.json";
+            string fileName = $"{DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss")}.json";
 
-           File.WriteAllText(fileName, jsonString);
+            using (StreamWriter sw = new StreamWriter(Path.Combine(DirectoryPath, fileName)))
+            {
+                sw.Write(jsonString);
+            }
         }
 
         /// <summary>
-        /// Restores session games.
+        /// <inheritdoc/>
         /// </summary>
-        /// <param name="fileName">Name of the fil that has data about game.</param>
-        /// <returns>Returns object that can be used for further games.</returns>
-        public T Restore(string fileName)
+        /// <param name="fileName"><inheritdoc/></param>
+        /// <returns><inheritdoc/></returns>
+        public static T Restore(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
 
             T data = JsonConvert.DeserializeObject<T>(jsonString);
 
             return data;
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/>/></returns>
+        public static string[] GetRestoreOptions()
+        {
+            return Directory.GetFiles(DirectoryPath);
         }
     }
 }

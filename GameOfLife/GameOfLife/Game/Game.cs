@@ -1,6 +1,4 @@
 ﻿
-using GameOfLife.Utils;
-
 namespace GameOfLife
 {
     /// <summary>

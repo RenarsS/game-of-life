@@ -70,12 +70,63 @@ namespace GameOfLife
         }
 
         /// <summary>
-        /// 
+        /// Displays arrow-controlled menu with options from which player can choose.
         /// </summary>
         /// <param name="options">Options displayed with action.</param>
-        public static void DisplayOptionMenu(string[] options)
+        public static int DisplayOptionMenu(string[] options, string message)
         {
+            int chosenOption = 0;
 
+            ConsoleKey key;
+
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                DisplayMessage(message);
+                
+
+                for (int i = 0; i < options.Length; i++)
+                {
+                    if (i == chosenOption)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(options[i]);
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine(options[i]);
+                    }
+                }
+
+                key = Console.ReadKey().Key;
+
+                switch(key)
+                {
+                    case ConsoleKey.UpArrow:
+                        chosenOption--;
+
+                        if (chosenOption == -1)
+                        {
+                            chosenOption = options.Length - 1;
+                        }
+                        break;
+                        
+                    case ConsoleKey.DownArrow:
+                        chosenOption++;
+
+                        if (chosenOption == options.Length)
+                        {
+                            chosenOption = 0;
+                        }
+                        break;
+                }
+
+                Console.Clear();
+            }
+            while (key != ConsoleKey.Enter);
+
+            return chosenOption;
         }
 
         /// <summary>

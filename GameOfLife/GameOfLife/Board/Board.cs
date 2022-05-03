@@ -23,29 +23,6 @@ namespace GameOfLife
         public bool[,] InitialBoard { get; set; }
 
         /// <summary>
-        /// Parsed two-dimensional array for serialization.
-        /// </summary>
-        //public int[][] Layout 
-        //{  
-        //    get
-        //    {
-        //        int[][] layout = new int[InitialBoard.GetLength(0)][];
-
-        //        for(int i = 0; i < InitialBoard.GetLength(1); i++)
-        //        {
-        //            layout[i] = new int[InitialBoard.GetLength(1)];
-
-        //            for (int j = 0; j < InitialBoard.GetLength(1); j++)
-        //            {
-        //                layout[i][j] = InitialBoard[i, j] ? 1 : 0;
-        //            }
-        //        }
-
-        //        return layout;
-        //    }
-        //}
-
-        /// <summary>
         /// Characters that indicates live cell on a board.
         /// </summary>
         protected const char LiveCell = (char)009632;

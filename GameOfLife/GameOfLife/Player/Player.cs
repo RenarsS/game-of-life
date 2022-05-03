@@ -1,4 +1,5 @@
-﻿
+﻿using static GameOfLife.Panel;
+
 namespace GameOfLife
 {
     /// <summary>
@@ -6,6 +7,8 @@ namespace GameOfLife
     /// </summary>
     public class Player : IPlayer
     {
+        private readonly string[] _gameMode = new string[] { "Start new game", "Restore game" };
+
         /// <summary>
         /// Parameterless constructor for player.
         /// </summary>
@@ -20,10 +23,28 @@ namespace GameOfLife
         /// </summary>
         public void Run()
         {
-            Panel.DisplayWelcomeMessage("Conway's game of life");
+            DisplayWelcomeMessage("Conway's game of life");
 
-            int height = Panel.GetIntegerInput("Please enter height of the board:");
-            int width = Panel.GetIntegerInput("Please enter width of the board:");
+            int gameMode = DisplayOptionMenu(_gameMode, "Choose game mode:\n\n");
+
+            if(gameMode == 0)
+            {
+                StartNewGame();
+            }
+            else
+            {
+                RestoreGame();
+            }
+
+        }
+
+        /// <summary>
+        /// Initiates and starts new game.
+        /// </summary>
+        private void StartNewGame()
+        {
+            int height = GetIntegerInput("Please enter height of the board:");
+            int width = GetIntegerInput("Please enter width of the board:");
 
             Console.Clear();
 
@@ -32,6 +53,23 @@ namespace GameOfLife
             var conwayGame = new BoardGame(conwayBoard);
 
             while (conwayGame.State != GameState.Exited)
+            {
+                conwayGame.Play();
+            }
+        }
+
+        /// <summary>
+        /// Initiates game from file and starts it.
+        /// </summary>
+        private void RestoreGame()
+        {
+            string[] opts = Save<IBoard>.GetRestoreOptions();
+
+            int chosen = DisplayOptionMenu(opts, "Choose file: \n");
+
+            var conwayGame = Save<BoardGame>.Restore(opts[chosen]);
+
+            while(conwayGame.State != GameState.Exited )
             {
                 conwayGame.Play();
             }
