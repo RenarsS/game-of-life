@@ -1,4 +1,5 @@
-﻿namespace GameOfLife
+﻿
+namespace GameOfLife
 {
     /// <summary>
     /// Public static class contains methods for validating different values.

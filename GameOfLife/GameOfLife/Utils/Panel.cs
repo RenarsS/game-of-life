@@ -126,6 +126,8 @@ namespace GameOfLife
             }
             while (key != ConsoleKey.Enter);
 
+            Console.ForegroundColor = ConsoleColor.White;
+
             return chosenOption;
         }
 

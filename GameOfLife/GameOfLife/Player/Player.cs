@@ -67,9 +67,11 @@ namespace GameOfLife
 
             int chosen = DisplayOptionMenu(opts, "Choose file: \n");
 
-            var conwayGame = Save<BoardGame>.Restore(opts[chosen]);
+            var conwayBoard = Save<ConwayBoard>.Restore(opts[chosen]);
 
-            while(conwayGame.State != GameState.Exited )
+            var conwayGame = new BoardGame(conwayBoard);
+
+            while (conwayGame.State != GameState.Exited)
             {
                 conwayGame.Play();
             }

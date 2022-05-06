@@ -51,6 +51,14 @@ namespace GameOfLife
         {
             InitialBoard = layout;
         }
+
+        /// <summary>
+        /// Parameterless constructor that turned out to be very crucial.
+        /// </summary>
+        public Board()
+        {
+
+        }
         
         /// <summary>
         /// Determines board's algorithm in a round.
