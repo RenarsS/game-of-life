@@ -6,7 +6,7 @@ namespace GameOfLife
     /// Class for generic implementation of retaining and restoring operations.
     /// </summary>
     /// <typeparam name="T">Type of game that is saved in the file.</typeparam>
-    public class Save<T> : ISave<T>
+    public class FileManager<T> : IFileManager<T>
     {
         /// <summary>
         /// Name of the directory for the game files.

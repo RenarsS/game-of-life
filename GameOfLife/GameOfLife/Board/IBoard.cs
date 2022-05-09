@@ -14,7 +14,7 @@ namespace GameOfLife
         /// <summary>
         /// Holds statistics about board.
         /// </summary>
-        public Dictionary<string, int> Statistics { get; set; }
+        //public Dictionary<string, int> Statistics { get; set; }
 
         /// <summary>
         /// Layout of the board with recent generation.
@@ -30,11 +30,5 @@ namespace GameOfLife
         /// Determines how board is iterated and what is updated.
         /// </summary>
         public void Iterate();
-
-        /// <summary>
-        /// Dictates how board is displayed.
-        /// </summary>
-        public void DisplayBoard();
-
     }
 }

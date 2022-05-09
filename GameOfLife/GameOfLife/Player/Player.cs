@@ -63,11 +63,11 @@ namespace GameOfLife
         /// </summary>
         private void RestoreGame()
         {
-            string[] opts = Save<IBoard>.GetRestoreOptions();
+            string[] opts = FileManager<IBoard>.GetRestoreOptions();
 
             int chosen = DisplayOptionMenu(opts, "Choose file: \n");
 
-            var conwayBoard = Save<ConwayBoard>.Restore(opts[chosen]);
+            var conwayBoard = FileManager<ConwayBoard>.Restore(opts[chosen]);
 
             var conwayGame = new BoardGame(conwayBoard);
 

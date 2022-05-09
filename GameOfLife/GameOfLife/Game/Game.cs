@@ -4,7 +4,7 @@ namespace GameOfLife
     /// <summary>
     /// Class providing game functionality.
     /// </summary>
-    public abstract class Game<T> : Save<T>, IGame 
+    public abstract class Game<T> : FileManager<T>, IGame 
     {
         /// <summary>
         /// State of the game.

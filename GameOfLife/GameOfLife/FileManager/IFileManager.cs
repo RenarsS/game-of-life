@@ -7,7 +7,7 @@ namespace GameOfLife
     /// Interface of the class that is responsible for saving and restoring games.
     /// </summary>
     /// <typeparam name="T">Parameter which is being retained or restored.</typeparam>
-    public interface ISave<T>
+    public interface IFileManager<T>
     {
         /// <summary>
         /// Path to the directory where all of the files are saved.

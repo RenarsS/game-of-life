@@ -1,20 +1,25 @@
 ﻿
+using System.Runtime.Serialization;
+
 namespace GameOfLife
 {
     /// <summary>
     /// Board for Conway's game of life.
     /// </summary>
+    [DataContract]
     public class ConwayBoard : Board
     {
         /// <summary>
         /// Count of live cells on the board.
         /// </summary>
-        private int liveCellCount { get; set; } = 0;
+        [DataMember]
+        private int _liveCellCount { get; set; } = 0;
 
         /// <summary>
         /// Count of iterations of the board.
         /// </summary>
-        public int iterationCount { get; set; } = 1;
+        [DataMember]
+        private int _iterationCount { get; set; } = 1;
 
         /// <summary>
         /// Initialiazes board with required size.
@@ -32,12 +37,13 @@ namespace GameOfLife
                 {
                     InitialBoard[i, j] = randomGen.Next(0, 2) == 1;
 
-                    CountLiveCells(InitialBoard[i, j]);
-                }
-            }
+                    BoardString += InitialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell;
 
-            Statistics.Add("Generations of cells", iterationCount);
-            Statistics.Add("Amount of live cells", liveCellCount);
+                    _liveCellCount += InitialBoard[i, j] ? 1 : 0;
+                }
+
+                BoardString += "\n";
+            }
         }
 
         /// <summary>
@@ -45,9 +51,12 @@ namespace GameOfLife
         /// </summary>
         public override void Flow()
         {
-            DisplayBoard();
+            //DisplayBoard();
 
-            Panel.DisplayStatsTable(Statistics);
+            Panel.DisplayMessage(BoardString);
+
+            Panel.DisplayStatsTableRow("Generation of cells: ", _iterationCount);
+            Panel.DisplayStatsTableRow("Amount of live cells: ", _liveCellCount);
 
             Iterate();
 
@@ -62,7 +71,9 @@ namespace GameOfLife
         /// </summary>
         public override void Iterate()
         {
-            liveCellCount = 0;
+            _liveCellCount = 0;
+
+            BoardString = "";
 
             bool[,] newBoard = new bool[InitialBoard.GetLength(0), InitialBoard.GetLength(1)];
 
@@ -74,35 +85,17 @@ namespace GameOfLife
 
                     newBoard[i, j] = DetermineCellState(aliveCellCount, InitialBoard[i, j]);
 
-                    CountLiveCells(newBoard[i, j]);
+                    BoardString += newBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell;
+
+                    _liveCellCount += newBoard[i, j] ? 1 : 0;
                 }
+
+                BoardString += "\n";
             }
 
-            AugmentIterations();
-
-            Statistics["Generations of cells"] = iterationCount;
-            Statistics["Amount of live cells"] = liveCellCount;
+            _iterationCount++;
 
             InitialBoard = newBoard;
-        }
-
-        /// <summary>
-        /// Displays board on console.
-        /// Live cells are indicated by white square and un-alived cells by nothing.
-        /// </summary>
-        public override void DisplayBoard()
-        {
-            for (int i = 0; i < InitialBoard.GetLength(0); i++)
-            {
-                for (var j = 0; j < InitialBoard.GetLength(1); j++)
-                {
-                    Console.Write(InitialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell);
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
         }
 
         /// <summary>
@@ -150,23 +143,6 @@ namespace GameOfLife
             }
 
             return initialState;
-        }
-
-        /// <summary>
-        /// Used as counter. Adds 1 if cell is live.
-        /// </summary>
-        /// <param name="cell">Cell that is used to check its state.</param>
-        private void CountLiveCells(bool cell)
-        {
-            liveCellCount += cell ? 1 : 0;
-        }
-
-        /// <summary>
-        /// Increases count of iterations.
-        /// </summary>
-        private void AugmentIterations()
-        {
-            iterationCount++;
         }
     }
 }

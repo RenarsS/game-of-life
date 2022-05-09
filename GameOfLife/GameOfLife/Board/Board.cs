@@ -1,10 +1,12 @@
 ﻿
+using System.Runtime.Serialization;
+
 namespace GameOfLife
 {
     /// <summary>
     /// Class for storing and managing field and cells.
     /// </summary>
-    [Serializable]
+    [DataContract]
     public abstract class Board : IBoard
     {
         /// <summary>
@@ -15,12 +17,19 @@ namespace GameOfLife
         /// <summary>
         /// Holds statistics about the game.
         /// </summary>
-        public Dictionary<string, int> Statistics { get; set; } = new Dictionary<string, int>();
+        //public Dictionary<string, int> Statistics { get; set; } = new Dictionary<string, int>();
 
         /// <summary>
         /// Two-dimensional array in which initial values are stored and new layout created.
         /// </summary>
+        [DataMember]
         public bool[,] InitialBoard { get; set; }
+
+        /// <summary>
+        /// String of the board that is being displayed in console.
+        /// </summary>
+        [DataMember]
+        protected string BoardString { get; set; }
 
         /// <summary>
         /// Characters that indicates live cell on a board.
@@ -51,14 +60,6 @@ namespace GameOfLife
         {
             InitialBoard = layout;
         }
-
-        /// <summary>
-        /// Parameterless constructor that turned out to be very crucial.
-        /// </summary>
-        public Board()
-        {
-
-        }
         
         /// <summary>
         /// Determines board's algorithm in a round.
@@ -70,10 +71,5 @@ namespace GameOfLife
         /// Results in newer generation of board.
         /// </summary>
         public abstract void Iterate();
-
-        /// <summary>
-        /// Displays board based on defined rules. 
-        /// </summary>
-        public abstract void DisplayBoard();
     }
 }

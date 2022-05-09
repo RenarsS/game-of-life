@@ -59,14 +59,10 @@ namespace GameOfLife
         /// Arranges statistics in table-like appearance.
         /// </summary>
         /// <param name="stats">Statistics from the game.</param>
-        public static void DisplayStatsTable(Dictionary<string, int> stats)
+        public static void DisplayStatsTableRow(string stat, int value)
         {
-            foreach (var stat in stats)
-            {
-                Console.Write("{0, -15} {1,5}\n", stat.Key, stat.Value);
-            }
+            Console.Write("{0, -15} {1,5}\n", stat, value);
 
-            Console.WriteLine();
         }
 
         /// <summary>
