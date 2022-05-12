@@ -1,4 +1,5 @@
-﻿using static GameOfLife.Panel;
+﻿using GameOfLife.Utils;
+using static GameOfLife.Panel;
 
 namespace GameOfLife
 {
@@ -7,8 +8,6 @@ namespace GameOfLife
     /// </summary>
     public class Player : IPlayer
     {
-        private readonly string[] _gameMode = new string[] { "Start new game", "Restore game" };
-
         /// <summary>
         /// Parameterless constructor for player.
         /// </summary>
@@ -23,9 +22,9 @@ namespace GameOfLife
         /// </summary>
         public void Run()
         {
-            DisplayWelcomeMessage("Conway's game of life");
+            DisplayWelcomeMessage(Labels.GameName);
 
-            int gameMode = DisplayOptionMenu(_gameMode, "Choose game mode:\n\n");
+            int gameMode = EnableOptionsMenu(Labels.GameModes, Labels.ChooseGameMode);
 
             if(gameMode == 0)
             {
@@ -43,8 +42,8 @@ namespace GameOfLife
         /// </summary>
         private void StartNewGame()
         {
-            int height = GetIntegerInput("Please enter height of the board:");
-            int width = GetIntegerInput("Please enter width of the board:");
+            int height = GetIntegerInput(Labels.EnterBoardHeight);
+            int width = GetIntegerInput(Labels.EnterBoardWidth);
 
             Console.Clear();
 
@@ -65,7 +64,7 @@ namespace GameOfLife
         {
             string[] opts = FileManager<IBoard>.GetRestoreOptions();
 
-            int chosen = DisplayOptionMenu(opts, "Choose file: \n");
+            int chosen = EnableOptionsMenu(opts, Labels.ChooseFile);
 
             var conwayBoard = FileManager<ConwayBoard>.Restore(opts[chosen]);
 

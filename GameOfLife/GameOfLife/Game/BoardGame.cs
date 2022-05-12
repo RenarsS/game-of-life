@@ -1,4 +1,5 @@
-﻿
+﻿using GameOfLife.Utils;
+
 namespace GameOfLife
 {
     /// <summary>
@@ -21,12 +22,32 @@ namespace GameOfLife
         {
             while (State == GameState.Playing)
             {
-                Action keyActions = () => Panel.DisplayKeyMenu(
-                    spacebar: () => { Pause(); Console.Clear(); },
-                    enter: () => { Start(); Console.Clear(); },
-                    escape: () => { Stop(); Console.Clear(); },
-                    s: () => { Retain(_gameBoard); Stop(); Console.Clear(); }
-                    );
+                Action keyActions = () =>
+                {
+                    switch (Panel.GetKeyInput())
+                    {
+                        case ConsoleKey.Spacebar:
+                            Pause(); 
+                            Console.Clear();
+                            break;
+
+                        case ConsoleKey.Enter:
+                            Start(); 
+                            Console.Clear();
+                            break;
+
+                        case ConsoleKey.Escape:
+                            Stop(); 
+                            Console.Clear();
+                            break;
+
+                        case ConsoleKey.S:
+                            Retain(_gameBoard); 
+                            Stop(); 
+                            Console.Clear();
+                            break;
+                    }
+                 };
 
                 Task keyTask = new Task(keyActions);
 
@@ -36,7 +57,7 @@ namespace GameOfLife
 
                 if (State == GameState.Paused)
                 {
-                    Panel.DisplayMessage("Game was paused. \n\nTo resume press enter. \nTo exit press escape. \nTo save and exit press S.");
+                    Panel.DisplayMessage(Labels.PauseOpts);
                 }
             }
         }

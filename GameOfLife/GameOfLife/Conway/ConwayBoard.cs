@@ -1,4 +1,5 @@
 ﻿
+using GameOfLife.Utils;
 using System.Runtime.Serialization;
 
 namespace GameOfLife
@@ -51,12 +52,10 @@ namespace GameOfLife
         /// </summary>
         public override void Flow()
         {
-            //DisplayBoard();
-
             Panel.DisplayMessage(BoardString);
 
-            Panel.DisplayStatsTableRow("Generation of cells: ", _iterationCount);
-            Panel.DisplayStatsTableRow("Amount of live cells: ", _liveCellCount);
+            Panel.DisplayStatsTableRow(Labels.GenOfCells, _iterationCount);
+            Panel.DisplayStatsTableRow(Labels.AmountOfLiveCells, _liveCellCount);
 
             Iterate();
 

@@ -69,7 +69,7 @@ namespace GameOfLife
         /// Displays arrow-controlled menu with options from which player can choose.
         /// </summary>
         /// <param name="options">Options displayed with action.</param>
-        public static int DisplayOptionMenu(string[] options, string message)
+        public static int EnableOptionsMenu(string[] options, string message)
         {
             int chosenOption = 0;
 
@@ -125,35 +125,6 @@ namespace GameOfLife
             Console.ForegroundColor = ConsoleColor.White;
 
             return chosenOption;
-        }
-
-        /// <summary>
-        /// Calls function on key press.
-        /// Programmable key fucntionality.
-        /// </summary>
-        /// <param name="spacebar">Action invoked by spacebar key.</param>
-        /// <param name="enter">Action invoked b  by escape key.</param>
-        /// <param name="s">Action inved by s key.</param>
-        public static void DisplayKeyMenu(Action spacebar, Action enter, Action escape, Action s)
-        {
-            switch (GetKeyInput())
-            {
-                case ConsoleKey.Spacebar:
-                    spacebar();
-                    break;
-
-                case ConsoleKey.Enter:
-                    enter();
-                    break;
-
-                case ConsoleKey.Escape:
-                    escape();
-                    break;
-
-                case ConsoleKey.S:
-                    s();
-                    break;
-            }
         }
     }
 }
