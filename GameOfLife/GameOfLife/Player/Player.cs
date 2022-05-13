@@ -44,11 +44,8 @@ namespace GameOfLife
         {
             int height = GetIntegerInput(Labels.EnterBoardHeight);
             int width = GetIntegerInput(Labels.EnterBoardWidth);
-
             Console.Clear();
-
             var conwayBoard = new ConwayBoard(height, width);
-
             var conwayGame = new BoardGame(conwayBoard);
 
             while (conwayGame.State != GameState.Exited)
@@ -63,11 +60,8 @@ namespace GameOfLife
         private void RestoreGame()
         {
             string[] opts = FileManager<IBoard>.GetRestoreOptions();
-
             int chosen = EnableOptionsMenu(opts, Labels.ChooseFile);
-
             var conwayBoard = FileManager<ConwayBoard>.Restore(opts[chosen]);
-
             var conwayGame = new BoardGame(conwayBoard);
 
             while (conwayGame.State != GameState.Exited)

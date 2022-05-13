@@ -28,7 +28,6 @@ namespace GameOfLife
         public static T Restore(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
-
             T data = JsonConvert.DeserializeObject<T>(jsonString);
 
             return data;

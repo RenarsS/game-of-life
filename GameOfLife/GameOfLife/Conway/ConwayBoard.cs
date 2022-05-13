@@ -49,14 +49,10 @@ namespace GameOfLife
         public override void Flow()
         {
             DisplayBoard();
-
             Panel.DisplayStatsTableRow(Labels.GenOfCells, _iterationCount);
             Panel.DisplayStatsTableRow(Labels.AmountOfLiveCells, _liveCellCount);
-
             Iterate();
-
             Thread.Sleep(1000);
-
             Console.Clear();
         }
 
@@ -68,7 +64,6 @@ namespace GameOfLife
                 {
                     Console.Write(InitialBoard[i, j] ? LiveCell : EmptyCell);
                 }
-
                 Console.WriteLine();
             }
         }
