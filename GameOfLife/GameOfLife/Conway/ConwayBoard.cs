@@ -38,12 +38,8 @@ namespace GameOfLife
                 {
                     InitialBoard[i, j] = randomGen.Next(0, 2) == 1;
 
-                    BoardString += InitialBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell;
-
                     _liveCellCount += InitialBoard[i, j] ? 1 : 0;
                 }
-
-                BoardString += "\n";
             }
         }
 
@@ -52,7 +48,7 @@ namespace GameOfLife
         /// </summary>
         public override void Flow()
         {
-            Panel.DisplayMessage(BoardString);
+            DisplayBoard();
 
             Panel.DisplayStatsTableRow(Labels.GenOfCells, _iterationCount);
             Panel.DisplayStatsTableRow(Labels.AmountOfLiveCells, _liveCellCount);
@@ -64,6 +60,19 @@ namespace GameOfLife
             Console.Clear();
         }
 
+        public void DisplayBoard()
+        {
+            for(int i = 0; i < InitialBoard.GetLength(0); i++)
+            {
+                for(int j = 0; j < InitialBoard.GetLength(1); j++)
+                {
+                    Console.Write(InitialBoard[i, j] ? LiveCell : EmptyCell);
+                }
+
+                Console.WriteLine();
+            }
+        }
+
         /// <summary>
         /// Iterates throught board and applies rules.
         /// Updates statistics.
@@ -72,7 +81,6 @@ namespace GameOfLife
         {
             _liveCellCount = 0;
 
-            BoardString = "";
 
             bool[,] newBoard = new bool[InitialBoard.GetLength(0), InitialBoard.GetLength(1)];
 
@@ -84,14 +92,9 @@ namespace GameOfLife
 
                     newBoard[i, j] = DetermineCellState(aliveCellCount, InitialBoard[i, j]);
 
-                    BoardString += newBoard[i, j] ? LiveCell + EmptyCell : EmptyCell + EmptyCell;
-
                     _liveCellCount += newBoard[i, j] ? 1 : 0;
                 }
-
-                BoardString += "\n";
             }
-
             _iterationCount++;
 
             InitialBoard = newBoard;

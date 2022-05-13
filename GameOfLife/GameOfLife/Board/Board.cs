@@ -21,20 +21,14 @@ namespace GameOfLife
         public bool[,] InitialBoard { get; set; }
 
         /// <summary>
-        /// String of the board that is being displayed in console.
-        /// </summary>
-        [DataMember]
-        protected string BoardString { get; set; }
-
-        /// <summary>
         /// Characters that indicates live cell on a board.
         /// </summary>
-        protected const char LiveCell = (char)009632;
+        protected readonly string LiveCell = (char)009632 + " ";
 
         /// <summary>
         /// Used as a space between cells if used once, and dead cell if used twice.
         /// </summary>
-        protected const string EmptyCell = " ";
+        protected readonly string EmptyCell = "  ";
 
         /// <summary>
         /// Constructor creates two-dimensional array with user-desired sizes
