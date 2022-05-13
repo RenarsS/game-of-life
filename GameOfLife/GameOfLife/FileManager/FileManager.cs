@@ -37,7 +37,6 @@ namespace GameOfLife
             {
                 Directory.CreateDirectory(DirectoryPath);
             }
-
             string jsonString = JsonConvert.SerializeObject(data);
             string fileName = $"{DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss")}.json";
 
