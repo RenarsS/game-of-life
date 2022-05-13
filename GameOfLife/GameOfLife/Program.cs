@@ -1,8 +1,5 @@
 ﻿using GameOfLife;
 
-var game = new Game();
+var player = new Player();
 
-game.Prepare();
-
-game.Start();
-
+player.Run();

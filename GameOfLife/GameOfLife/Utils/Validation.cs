@@ -1,4 +1,5 @@
-﻿namespace GameOfLife
+﻿
+namespace GameOfLife
 {
     /// <summary>
     /// Public static class contains methods for validating different values.
@@ -27,7 +28,7 @@
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            catch(FormatException ex)
+            catch (FormatException)
             {
                 Console.WriteLine("Input value should contain only integer values.");
                 return false;
